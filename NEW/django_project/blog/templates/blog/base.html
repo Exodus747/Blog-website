@@ -29,6 +29,17 @@
       <nav id="navbar" class="navbar">
        
       <ul >
+
+
+        <form class="d-flex" method=POST action="{% url 'search-user' %}">
+          {% csrf_token %}
+  
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+
+
           {% if user.is_authenticated %}
           <li ><a class="nav-link" href="{% url 'blog-home' %}">
             <h5 style="color:rgb(57, 141, 97);">Home</h5></a></li>

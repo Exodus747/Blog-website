@@ -8,17 +8,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.contrib.auth.decorators import login_required
 from .models import Post
+from django.contrib.auth.models import User
 
 
-def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'blog/home.html', context)
 
-
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin,ListView):
     model = Post
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -47,7 +43,7 @@ class SelfPostListView(ListView):
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView,LoginRequiredMixin):
     model = Post
 
 
@@ -77,7 +73,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = '/main'
 
     def test_func(self):
         post = self.get_object()
@@ -85,6 +81,20 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+def home (request):
+    return render(request, 'blog/landing.html')
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+def search_user(request):
+    if request.method =="POST":
+        searched = request.POST['searched']
+        users=User.objects.filter(username__contains=searched)
+        posts=Post.objects.filter(title__contains=searched)
+        return render(request, 'blog/search-results.html',{'searched':searched,
+                                                            'users':users,
+                                                            'posts':posts})
+    else:
+        return render(request, 'blog/search-results.html',{})
