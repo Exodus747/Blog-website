@@ -17,8 +17,8 @@
         <title>Elementa</title>
     
 </head>
-<body>
-  <header id="header" class="d-flex align-items-center" style="background-color:rgb(43, 41, 41);padding: 20px;">
+<body style="margin:0px";class="flex-container">
+  <header id="header" class="d-flex align-items-center fixed-top" style="background-color:rgb(43, 41, 41);margin:0px";>
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo"> 
@@ -29,26 +29,26 @@
       <nav id="navbar" class="navbar">
        
       <ul >
-
           {% if user.is_authenticated %}
-          <li ><a class="nav-link" href="{% url 'blog-home' %}"><h5 style="color:rgb(57, 141, 97);">Home</h5></a></li>
-          <li><a class="nav-link" href="{% url 'post-create' %}"><h5 style="color:rgb(57, 141, 97);">New Post</h5></a></li>
-          <li><a class="nav-link" href="{% url 'profile' %}"><h5 style="color:rgb(57, 141, 97);">Profile</h5></a></li>
+          <li ><a class="nav-link" href="{% url 'blog-home' %}">
+            <h5 style="color:rgb(57, 141, 97);">Home</h5></a></li>
+          <li><a class="nav-link " href="{% url 'post-create' %}"><h5 style="color:rgb(57, 141, 97);">New Post</h5></a></li>
+          <li><a class="nav-link" href="{% url 'self-posts' user.username %}"><h5 style="color:rgb(57, 141, 97);">Profile</h5></a></li>
           <li><a class="nav-link" href="{% url 'logout' %}"><h5 style="color:rgb(57, 141, 97);">Logout</h5></a></li>
         {% else %}
-<li><a class="nav-item nav-link" href="{% url 'blog-about' %}"><h5 style="color:rgb(57, 141, 97);">About</h5></a></li>
+    <li><a class="nav-item nav-link " href="{% url 'blog-about' %}"><h5 style="color:rgb(57, 141, 97);">About</h5></a></li>
           <li><a class="nav-link scrollto" href="{% url 'login' %}"><h5 style="color:rgb(57, 141, 97);">Login</h5></a></li>
           <li><a class="nav-link scrollto" href="{% url 'register' %}"><h5 style="color:rgb(57, 141, 97);">Register</h5></a></li>
         {% endif %}
       </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+      <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
 
 
-  <section id="about" class="about">
+  <section id="about" class="about row" style="padding-top:120px;">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
@@ -56,7 +56,7 @@
         <p>Hello <p style="text-transform: uppercase;">{{ user.username }}</p></p>
       </div>
       <div  align="center">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
           {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
@@ -70,7 +70,47 @@
       
     </div>
   </section><!-- End About Us Section -->
+<div style=" bottom: 0;">
 
+
+
+  <footer id="footer" >
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <a href="#header" class="scrollto footer-logo"><img src="{% static 'blog/img/favicon1.png' %}" alt="" ></a>
+            <h3>Elementa</h3>
+            <p> Blog to keep you connected</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Elementa</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+         Designed by <a href="#">Manvik Jain</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
