@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
-  <article class="media content-section">
+  <article class="media content-section" style="margin-bottom:0px;">
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
       <div class="article-metadata">
@@ -17,4 +17,18 @@
       <p class="article-content">{{ object.content }}</p>
     </div>
   </article>
+
+  <article class="content-section" style="margin-top:2px;">
+    <article class="content-section" > <h5>Comments &nbsp;<a href="{% url 'add_comment' post.pk %}"> Add +</a></h5></article> 
+    
+    <table style="margin-top:8px;"></table>
+        {% for comment in post.comments.all %}
+        
+          <tr><td><h5 style="text-transform: capitalize;">{{comment.name}} : </h5>
+          </td></tr>
+            <tr><td><p>{{comment.body}}</p></td></tr>
+       
+        {% endfor%}
+      </table>
+      </article>
 {% endblock content %}

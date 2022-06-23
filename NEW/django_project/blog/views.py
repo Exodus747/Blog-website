@@ -11,7 +11,9 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from .models import Post
 from django.contrib.auth.models import User
-
+from .models import Comment
+from .forms import CommentForm
+from django.urls import reverse_lazy, reverse
 
 
 class PostListView(LoginRequiredMixin,ListView):
@@ -98,3 +100,14 @@ def search_user(request):
                                                             'posts':posts})
     else:
         return render(request, 'blog/search-results.html',{})
+
+class AddCommentView(LoginRequiredMixin,CreateView):
+	model = Comment
+	form_class = CommentForm
+	template_name = 'blog/add_comment.html'
+	#fields = '__all__'
+	def form_valid(self, form):
+		form.instance.post_id = self.kwargs['pk']
+		return super().form_valid(form)
+
+	success_url = reverse_lazy('blog-home')

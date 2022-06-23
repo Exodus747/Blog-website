@@ -9,6 +9,7 @@ from .views import (
     SelfPostListView
 )
 from . import views
+from .views import  AddCommentView
 
 urlpatterns = [
     path('', views.home, name='landing'),
@@ -21,5 +22,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('about/', views.about, name='blog-about'),
     path('search/', views.search_user, name='search-user'),
+    path('article/<int:pk>/comment/', AddCommentView.as_view(), name='add_comment'),
+
 
 ]

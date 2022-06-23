@@ -17,7 +17,7 @@
    </div>
     <h1 class="mb-3">Posts by {{ user.username }} ({{ page_obj.paginator.count }})</h1>
     {% for post in posts %}
-        <article class="media content-section">
+        <article class="media content-section" style="margin-bottom:0px;">
           <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
@@ -28,6 +28,11 @@
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
+
+        <article class="content-section" style="margin-top:2px;">
+          <h4>Comments &nbsp;<a href="{% url 'add_comment' post.pk %}"> Add +</a></h4>
+          
+            </article>
     {% endfor %}
 
     {% if is_paginated %}
